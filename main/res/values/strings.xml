@@ -18,5 +18,9 @@
     <string name="weather_drizzle">&#xf01c;</string>
 
     <string name="place_not_found">Sorry, no weather data found.</string>
+    <string name="error_title">Oops! Sorry</string>
+    <string name="error_message">There was an error. Please try again!</string>
+    <string name="error_button_ok_text">OK</string>
+    <string name="network_unavailable_message">Sorry, the network is unavailable.</string>
 
 </resources>
