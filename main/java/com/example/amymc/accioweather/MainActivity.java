@@ -2,11 +2,14 @@ package com.example.amymc.accioweather;
 
 import android.app.Activity;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.amymc.accioweather.databinding.ActivityMainBinding;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +30,8 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        final ActivityMainBinding binding = DataBindingUtil.setContentView(MainActivity.this,
+                R.layout.activity_main);
 
         String apiKey = "26a78eabb06e4ec754986e6d84c1abc0";
 
@@ -62,6 +66,19 @@ public class MainActivity extends Activity
                         if (response.isSuccessful())
                         {
                             currentWeather  = getCurrentDetails(jsonData);
+
+                            CurrentWeather displayWeather = new CurrentWeather(
+                                    currentWeather.getLocationLabel(),
+                                    currentWeather.getIcon(),
+                                    currentWeather.getTime(),
+                                    currentWeather.getTemperature(),
+                                    currentWeather.getHumidity(),
+                                    currentWeather.getPrecipChance(),
+                                    currentWeather.getSummary(),
+                                    currentWeather.getTimeZone()
+                            );
+
+                            binding.setWeather(displayWeather);
                         }
                         else
                         {

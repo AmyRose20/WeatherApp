@@ -23,6 +23,24 @@ public class CurrentWeather
     private double temperature;
     private double humidity;
     private double precipChance;
+
+    public CurrentWeather()
+    {
+
+    }
+
+    public CurrentWeather(String locationLabel, String icon, long time, double temperature, double humidity, double precipChance, String summary, String timeZone)
+    {
+        this.locationLabel = locationLabel;
+        this.icon = icon;
+        this.time = time;
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.precipChance = precipChance;
+        this.summary = summary;
+        this.timeZone = timeZone;
+    }
+
     private String summary;
     private String timeZone;
 
@@ -144,7 +162,8 @@ public class CurrentWeather
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(long time)
+    {
         this.time = time;
     }
 

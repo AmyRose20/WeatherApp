@@ -26,7 +26,7 @@ public class IntroScreen extends Activity
             {
                 try
                 {
-                    sleep(8000);
+                    sleep(6000);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     finish();
