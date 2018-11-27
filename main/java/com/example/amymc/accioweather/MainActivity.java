@@ -3,10 +3,13 @@ package com.example.amymc.accioweather;
 import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.amymc.accioweather.databinding.ActivityMainBinding;
@@ -26,17 +29,26 @@ public class MainActivity extends Activity
     public static final String TAG = MainActivity.class.getSimpleName();
     private CurrentWeather currentWeather;
 
+    public ImageView iconImageView;
+
+    final double latitude =  53.3498; // 23.5505;
+    final double longitude = 6.2603; //46.6333;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        getForecast(latitude, longitude);
+    }
+
+    private void getForecast(double latitude, double longitude)
+    {
         final ActivityMainBinding binding = DataBindingUtil.setContentView(MainActivity.this,
                 R.layout.activity_main);
 
-        String apiKey = "26a78eabb06e4ec754986e6d84c1abc0";
+        iconImageView = findViewById(R.id.weather_icon);
 
-        double latitude = 37.8267;
-        double longitude = -122.4233;
+        String apiKey = "26a78eabb06e4ec754986e6d84c1abc0";
 
         String apiURL = "https://api.darksky.net/forecast/"
                 + apiKey + "/" + latitude +"," + longitude;
@@ -67,7 +79,7 @@ public class MainActivity extends Activity
                         {
                             currentWeather  = getCurrentDetails(jsonData);
 
-                            CurrentWeather displayWeather = new CurrentWeather(
+                            final CurrentWeather displayWeather = new CurrentWeather(
                                     currentWeather.getLocationLabel(),
                                     currentWeather.getIcon(),
                                     currentWeather.getTime(),
@@ -79,6 +91,16 @@ public class MainActivity extends Activity
                             );
 
                             binding.setWeather(displayWeather);
+
+                            runOnUiThread(new Runnable()
+                            {
+                                @Override
+                                public void run()
+                                {
+                                    Drawable drawable = getResources().getDrawable(displayWeather.getIconId());
+                                    iconImageView.setImageDrawable(drawable);
+                                }
+                            });
                         }
                         else
                         {
@@ -143,5 +165,11 @@ public class MainActivity extends Activity
     {
         AlertDialogFragment dialog = new AlertDialogFragment();
         // dialog.show(getSupportFragmentManager(), "error_dialog");
+    }
+
+    public void refreshOnClick(View view)
+    {
+        Toast.makeText(this, "Refreshing data", Toast.LENGTH_LONG);
+        getForecast(latitude, longitude);
     }
 }
