@@ -25,5 +25,6 @@
 
     <string name="humidity">Humidity Level</string>
     <string name="rainfall">Chances of rainfall</string>
+    <string name="title_activity_hourly_forecast">HourlyForecastActivity</string>
 
 </resources>

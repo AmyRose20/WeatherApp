@@ -6,14 +6,14 @@
     <data>
         <variable
             name="weather"
-            type="com.example.amymc.accioweather.CurrentWeather">
+            type="com.example.amymc.accioweather.weather.CurrentWeather">
         </variable>
     </data>
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -35,19 +35,30 @@
             android:layout_height="54dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/lumos"
-            android:text="Dublin, Ireland"
+            android:fontFamily="@font/font2"
+            android:text="@{weather.locationLabel, default=`Dublin, Ireland`}"
             android:textColor="@android:color/white"
             android:textSize="40sp" />
 
         <ImageView
             android:id="@+id/weather_icon"
-            android:layout_width="185dp"
-            android:layout_height="132dp"
+            android:layout_width="160dp"
+            android:layout_height="96dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/cloudy_night" />
+
+        <TextView
+            android:id="@+id/timeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/font2"
+            android:text="@{`At ` + String.valueOf(weather.formattedTime) + ` it will be`, default=`At 5:00 PM it will be`}"
+            android:textColor="@android:color/white"
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/summary"
@@ -55,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/lumos"
+            android:fontFamily="@font/font2"
             android:text="@{weather.summary, default=`summary`}"
             android:textColor="@android:color/white"
             android:textSize="40sp" />
@@ -90,17 +101,17 @@
                     android:id="@+id/rainLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lumos"
+                    android:fontFamily="@font/font2"
                     android:text="@string/rainfall"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
                 <TextView
                     android:id="@+id/rainValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="@font/font2"
                     android:text="@{String.valueOf(Math.round(weather.precipChance * 100)) + ` %`, default=`50 %`}"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
@@ -108,19 +119,26 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/add_location"
+                <Button
+                    android:id="@+id/hourly_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@android:color/transparent"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/colorAccent"
                     android:elevation="4dp"
-                    android:layout_marginTop="12dp" />
+                    android:fontFamily="@font/font2"
+                    android:text="CLICK FOR HOURLY FORECAST"
+                    android:textColor="@android:color/white"
+
+                    android:onClick="hourlyOnClick"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -135,10 +153,10 @@
                     android:layout_width="98dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:fontFamily="@font/lumos"
+                    android:fontFamily="@font/font2"
                     android:text="@string/humidity"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
                 <TextView
                     android:id="@+id/humidityValue"
@@ -146,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="@font/font2"
                     android:text="@{String.valueOf(weather.humidity), default=`0.88`}"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
