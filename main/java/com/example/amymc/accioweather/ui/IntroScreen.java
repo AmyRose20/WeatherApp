@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-
 import com.example.amymc.accioweather.R;
-import com.example.amymc.accioweather.ui.MainActivity;
 
 public class IntroScreen extends Activity
 {

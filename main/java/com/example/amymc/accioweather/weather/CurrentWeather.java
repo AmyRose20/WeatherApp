@@ -1,31 +1,22 @@
 package com.example.amymc.accioweather.weather;
 
-import com.example.amymc.accioweather.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
 public class CurrentWeather
 {
+    // Data
     private String locationLabel;
     private String icon;
     private long time;
-
-    public String getTimeZone()
-    {
-        return timeZone;
-    }
-
-    public void setTimeZone(String timeZone)
-    {
-        this.timeZone = timeZone;
-    }
-
     private double temperature;
     private double humidity;
     private double precipChance;
+    private String summary;
+    private String timeZone;
 
+    // Constructors
     public CurrentWeather()
     {
 
@@ -42,9 +33,6 @@ public class CurrentWeather
         this.summary = summary;
         this.timeZone = timeZone;
     }
-
-    private String summary;
-    private String timeZone;
 
     public String getSummary()
     {
@@ -99,53 +87,7 @@ public class CurrentWeather
     //TEST
     public int getIconId()
     {
-        // Default value
-        int iconId = R.drawable.clear_day;
-
-        // Update icon id
-        switch(icon)
-        {
-            case "clear-day":
-                iconId = R.drawable.clear_day;
-                break;
-
-            case "clear-night":
-                iconId = R.drawable.clear_night;
-                break;
-
-            case "rain":
-                iconId = R.drawable.rain;
-                break;
-
-            case "snow":
-                iconId = R.drawable.snow;
-                break;
-
-            case "sleet":
-                iconId = R.drawable.sleet;
-                break;
-
-            case "wind":
-                iconId = R.drawable.wind;
-                break;
-
-            case "fog":
-                iconId = R.drawable.fog;
-                break;
-
-            case "cloudy":
-                iconId = R.drawable.cloudy;
-                break;
-
-            case "partly-cloudy-day":
-                iconId = R.drawable.partly_cloudy;
-                break;
-
-            case "partly-cloudy-night":
-                iconId = R.drawable.cloudy_night;
-                break;
-        }
-        return iconId;
+        return Forecast.getIconId(icon);
     }
 
     // TEST
@@ -177,5 +119,15 @@ public class CurrentWeather
     public void setLocationLabel(String locationLabel)
     {
         this.locationLabel = locationLabel;
+    }
+
+    public String getTimeZone()
+    {
+        return timeZone;
+    }
+
+    public void setTimeZone(String timeZone)
+    {
+        this.timeZone = timeZone;
     }
 }

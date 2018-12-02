@@ -12,18 +12,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.amymc.accioweather.weather.CurrentWeather;
 import com.example.amymc.accioweather.R;
 import com.example.amymc.accioweather.databinding.ActivityMainBinding;
 import com.example.amymc.accioweather.weather.Forecast;
 import com.example.amymc.accioweather.weather.Hour;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -34,9 +34,7 @@ public class MainActivity extends Activity
 {
     public static final String TAG = MainActivity.class.getSimpleName();
     private Forecast forecast;
-
     public ImageView iconImageView;
-
     final double latitude =  53.3498; // 23.5505;
     final double longitude = 6.2603; //46.6333;
 
@@ -55,14 +53,12 @@ public class MainActivity extends Activity
         iconImageView = findViewById(R.id.weather_icon);
 
         String apiKey = "26a78eabb06e4ec754986e6d84c1abc0";
-
         String apiURL = "https://api.darksky.net/forecast/"
                 + apiKey + "/" + latitude +"," + longitude;
 
         if(isNetworkAvailable())
         {
             OkHttpClient client = new OkHttpClient();
-
             Request request = new Request.Builder().url(apiURL).build();
 
             Call call = client.newCall(request);
@@ -219,7 +215,10 @@ public class MainActivity extends Activity
 
     public void hourlyOnClick(View view)
     {
+        List<Hour> hours = Arrays.asList(forecast.getHourlyForecast());
         Intent intent = new Intent(this, HourlyForecastActivity.class);
+        // putExtra() stores data in intent for future use
+        intent.putExtra("HourlyList", (Serializable) hours);
         startActivity(intent);
     }
 }
